@@ -31,9 +31,9 @@ public class LionTest {
 //    }
 
     @Test
-    public void testGetKittens() {
+    public void testGetKittens() throws Exception {
         when(mockFeline.getKittens()).thenReturn(1);
-        lion = new Lion(mockFeline);
+        lion = new Lion("Самец", mockFeline);
         assertEquals(1, lion.getKittens());
     }
 
@@ -41,14 +41,14 @@ public class LionTest {
     public void testGetFood() throws Exception {
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         when(mockFeline.getFood("Хищник")).thenReturn(expectedFood);
-        lion = new Lion(mockFeline);
+        lion = new Lion("Самец", mockFeline);
         assertEquals(expectedFood, lion.getFood());
     }
 
     @Test
     public void testLionThrowsExceptionForInvalidSex() {
         Exception exception = assertThrows(Exception.class, () -> {
-            new Lion("Неправильный пол");
+            new Lion("Неправильный пол", mockFeline);
         });
 
         String expectedMessage = "Используйте допустимые значения пола животного - самец или самка";
